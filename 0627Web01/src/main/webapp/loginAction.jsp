@@ -21,6 +21,7 @@
 	UserDAO userDAO = new UserDAO();
 	int result = userDAO.login(user.getUserID(), user.getUserPassword());
 	//로그인함수 실행 결과값에 따라서 화면으로 뿌려줄 스크립트 생성
+	out.println("result : "+result);
 	if(result==1){	//로그인 성공시
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
