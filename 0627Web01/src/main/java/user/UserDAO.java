@@ -23,9 +23,7 @@ public class UserDAO {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//데이터베이스 드라이버를 로드할뿐 연결에 관한 행동은 아무것도 안한다.
-			System.out.println("db연결 시도");
 			conn = DriverManager.getConnection(dbURL, dbId, dbPassword);
-			System.out.println("UserDAO끝");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
