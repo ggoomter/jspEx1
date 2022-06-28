@@ -70,10 +70,10 @@ public class UserDAO {
 			pstmt.setString(4, user.getUserGender());
 			//프로그래밍 언어에서 인덱스는 0부터 시작이지만 쿼리에서는 1부터 시작이다.
 			
-			return pstmt.executeUpdate();	//0또는 1
+			return pstmt.executeUpdate();	//정상이면1
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();	//중복발생이나 어떤이유로 예외가 발생하면
 		}
-		return -1;	//데이터베이스 오류
+		return -1;	//중복발생
 	}
 }
