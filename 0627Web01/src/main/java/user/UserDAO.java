@@ -55,4 +55,25 @@ public class UserDAO {
 		}
 		return -2;	//데이터베이스 오류
 	}
+	
+	
+	//회원가입 기능 구현
+	public int join(User user) {
+		String SQL = "INSERT INTO TABLE_USER VALUES(?,?,?,?)";
+		//실행할 쿼리. 아이디, 비밀번호, 이름, 성별
+
+		try {
+			pstmt = conn.prepareStatement(SQL);	//문자열 쿼리를 pstmt에 대입
+			pstmt.setString(1, user.getUserID());
+			pstmt.setString(2, user.getUserPassword());
+			pstmt.setString(3, user.getUserName());
+			pstmt.setString(4, user.getUserGender());
+			//프로그래밍 언어에서 인덱스는 0부터 시작이지만 쿼리에서는 1부터 시작이다.
+			
+			return pstmt.executeUpdate();	//0또는 1
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;	//데이터베이스 오류
+	}
 }
