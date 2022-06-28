@@ -31,7 +31,7 @@
 		script.println("history.back()");	//뒤로가기
 		script.println("</script>");
 	}
-	if(result==1){	//회원가입 성공시
+	else if(result==1){	//회원가입 성공시
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("location.href='login_booot.jsp'");
