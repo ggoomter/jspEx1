@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.98.0">
-    <title>Headers Â· Bootstrap v5.2</title>
+    <title>헤더</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
 
@@ -124,6 +124,7 @@
         </c:if>
         <!-- 세션이 비어있지 않을때만 로그아웃버튼 노출 -->
         <c:if test="${!empty sessionScope.userID }">
+        	<c:out value="${sessionScope.userID }" default = "null" />
         	<button type="button" class="btn btn-primary" onclick="location.href='logoutAction.jsp'">로그아웃</button>
       	</c:if>
       </div>
