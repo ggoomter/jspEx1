@@ -43,7 +43,7 @@ public class BbsDAO {
 			pstmt.setString(4, getDate());	//crDate
 			pstmt.setString(5, bbsContent);	//bbsContent
 			pstmt.setInt(6, 1);	//bbsAvailable
-			
+			System.out.println("끝");
 			return pstmt.executeUpdate();
 					
 		} catch (Exception e) {
@@ -53,10 +53,30 @@ public class BbsDAO {
 	}
 	
 	public int getNext() {
-		return 0;
+		String SQL = "select max(bbsID) from BBS";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			rs =  pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1)+1;	//다음에 들어갈수 = 현재 들어있는 최고숫자 +1
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;	//에러
 	}
 	
 	public String getDate() {
+		String SQL = "select NOW() from dual";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			rs =  pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);	//데이터리스트의 첫번째꺼
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "";
 	}
 
