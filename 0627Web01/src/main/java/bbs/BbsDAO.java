@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 //Data Access Object = 데이터에 접근하는 역할을 맡은 객체
@@ -46,8 +47,7 @@ public class BbsDAO {
 			pstmt.setString(4, today);	//crDate
 			pstmt.setString(5, bbsContent);	//bbsContent
 			pstmt.setInt(6, 1);	//bbsAvailable
-			System.out.println("끝");
-			return pstmt.executeUpdate();
+			return pstmt.executeUpdate();	//CUD에 쓰는쿼리
 					
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,6 +82,36 @@ public class BbsDAO {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	
+	//글 목록 가져오는 함수
+	//쿼리 = 인자(?)로 전달받은 글번호 최신순으로 10개만 가져오는 함수
+	//그런데 함수는 페이지번호다. 그러면 해당페이지의 마지막번호가 몇인지 분석해내야한다.
+	public ArrayList<Bbs> getList(int pageNumber){
+		String SQL = "select * from BBS where bbsID < ?\r\n"
+				+ "   and bbsAvailable = 1\r\n"
+				+ "   order by bbsID desc \r\n"
+				+ "   limit 10";
+		ArrayList<Bbs> list = new ArrayList<Bbs>();	//껍데기 리스트
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			int startNum = getNext() - (pageNumber - 1)*10;
+			pstmt.setInt(1, startNum);	//해당페이지의 시작번호
+			rs =  pstmt.executeQuery(); //select문에 쓰는 함수
+			if(rs.next()) {
+				 Bbs bbs = new Bbs();
+				 bbs.setBbsID(rs.getInt(1));
+				 bbs.setBbsTitle(rs.getString(2));
+				 bbs.setWriter(rs.getString(3));
+				 bbs.setCrDate(rs.getString(4));
+				 bbs.setBbsContent(rs.getString(5));
+				 bbs.setBbsAvailable(rs.getInt(6));
+				 list.add(bbs);	//검색된 글들을 하나하나 리스트에 쌓기
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;	//다쌓은 리스트를 반환
 	}
 
 }
