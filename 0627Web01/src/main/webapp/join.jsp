@@ -24,7 +24,7 @@
 </head>
 
 <body>
-<%
+<%-- <%
 	//현재 로그인이 되어있는데 회원가입을 하면 로그인 되어있다고 알려주기
 	String userID = null;
 	if(session.getAttribute("userID") != null){	//세션의 userID가 비어있지않으면 가져오기
@@ -37,7 +37,7 @@
 		script.println("location.href='index.jsp'");
 		script.println("</script>");
 	}
-%>
+%> --%>
 
 
 

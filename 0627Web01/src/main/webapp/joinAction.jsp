@@ -24,24 +24,22 @@
 	String userID = null;
 	if(session.getAttribute("userID") != null){	//세션의 userID가 비어있지않으면 가져오기
 		userID = (String)session.getAttribute("userID");
-	}
-	if(userID != null){
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('이미 로그인이 되어있습니다.')");
 		script.println("location.href='index.jsp'");
 		script.println("</script>");
 	}
-
-
 	//백엔드에서 유효성검사
-	if(user.getUserID()==null || user.getUserPassword()==null || user.getUserName()==null || user.getUserGender()==null){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('입력이 안된 부분이 있습니다.')");
-		script.println("history.back()");	//뒤로가기
-		script.println("</script>");
-	}else{
+	else if(user.getUserID()==null || user.getUserPassword()==null ||
+			user.getUserName()==null || user.getUserGender()==null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('입력이 안된 부분이 있습니다.')");
+			script.println("history.back()");	//뒤로가기
+			script.println("</script>");
+		}
+	else{
 		UserDAO userDAO = new UserDAO();
 		int result = userDAO.join(user);
 		//회원가입함수 실행 결과값에 따라서 화면으로 뿌려줄 스크립트 생성
@@ -67,7 +65,7 @@
 		}
 		
 	}
-	
+
 
 %>
 
