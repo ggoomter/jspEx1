@@ -20,9 +20,37 @@
 	integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 	crossorigin="anonymous"></script>
 </head>
-<body class="text-center">
+<body >
 	<jsp:include page="header.jsp"></jsp:include>
-
+	
+	<div class="container">
+		<div class="row">
+			<table >
+				<thead>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>자바</td>
+						<td>홍길동</td>
+						<td>2022-06-29</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>호랑이형님</td>
+						<td>산군</td>
+						<td>2022-06-29</td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+		</div>
+	</div>
+	
 
 </body>
 </html>
