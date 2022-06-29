@@ -18,9 +18,25 @@ create table TABLE_USER(
 	primary key (userID)
 );
 
+create table BBS(
+	bbsID INT,
+	bbsTitle VARCHAR(50),
+	writer VARCHAR(20),
+	crDate DATETIME,
+	bbsContent VARCHAR(2048),
+	bbsAvailable INT,
+	primary KEY(bbsID)
+);
+
+
 # 문자열이 " 이 아니라 ' 안에 있어야한다.
 INSERT into TABLE_USER VALUES
-	('test1', '1234', '홍길동', 'M');
+	('test1@gmail.com', '1234', '홍길동', 'M');
+delete from TABLE_USER;
 
 select * from TABLE_USER;
 commit;
+
+SELECT userPassword FROM TABLE_USER WHERE userID='test1';
+
+INSERT INTO TABLE_USER VALUES('test1@gmail.com','1234','딸기우유','여자');
