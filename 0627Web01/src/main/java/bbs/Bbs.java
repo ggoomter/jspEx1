@@ -46,5 +46,13 @@ public class Bbs {
 		this.bbsAvailable = bbsAvailable;
 	}
 	
+	@Override
+	public String toString() {
+		return "Bbs [bbsID=" + bbsID + ", bbsTitle=" + bbsTitle + ", writer=" + writer + ", crDate=" + crDate
+				+ ", bbsContent=" + bbsContent + ", bbsAvailable=" + bbsAvailable + "]";
+	}
+	
+	
+	
 	
 }
