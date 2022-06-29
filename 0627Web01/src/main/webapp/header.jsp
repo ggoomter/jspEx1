@@ -118,9 +118,14 @@
       </ul>
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='login_booot.jsp'">로그인</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='join.jsp'">회원가입</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='logoutAction.jsp'">로그아웃</button>
+      	<c:if test="${empty sessionScope.userID }">
+	        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='login_booot.jsp'">로그인</button>
+	        <button type="button" class="btn btn-primary" onclick="location.href='join.jsp'">회원가입</button>
+        </c:if>
+        <!-- 세션이 비어있지 않을때만 로그아웃버튼 노출 -->
+        <c:if test="${!empty sessionScope.userID }">
+        	<button type="button" class="btn btn-primary" onclick="location.href='logoutAction.jsp'">로그아웃</button>
+      	</c:if>
       </div>
     </header>
   </div>
