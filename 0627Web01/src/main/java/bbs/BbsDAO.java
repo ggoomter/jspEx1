@@ -33,14 +33,17 @@ public class BbsDAO {
 	//글쓰기화면에서 내용작성후에 글쓰기버튼누르면 실행될 함수
 	//글id, 글의 제목, 내용, 글쓴이, 글쓴시간, 삭제여부를 db에 저장해야한다.
 	public int write(String bbsTitle, String userID, String bbsContent) {
-		String SQL = "INSERT INTO BBS VALUES (?,?,?,?,?,?)";
-
+		/* String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?)"; */
+		String SQL = "INSERT INTO BBS (bbsID, bbsTitle, writer, crDate, bbsContent, bbsAvailable) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
+			int bbsNum = getNext();
+			String today = getDate();
 			pstmt = conn.prepareStatement(SQL);	//문자열 쿼리를 pstmt에 대입
-			pstmt.setInt(1, getNext());	//id
+			pstmt.setInt(1, bbsNum);	//id
 			pstmt.setString(2, bbsTitle);	//bbsTitle. 제목
+			//Parameter index out of range 에러 발생
 			pstmt.setString(3, userID);	//writer
-			pstmt.setString(4, getDate());	//crDate
+			pstmt.setString(4, today);	//crDate
 			pstmt.setString(5, bbsContent);	//bbsContent
 			pstmt.setInt(6, 1);	//bbsAvailable
 			System.out.println("끝");
@@ -60,6 +63,7 @@ public class BbsDAO {
 			if(rs.next()) {
 				return rs.getInt(1)+1;	//다음에 들어갈수 = 현재 들어있는 최고숫자 +1
 			}
+			return 1;	// 아무것도 읽을게 없었으면. 첫번째글
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
