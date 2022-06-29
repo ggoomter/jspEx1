@@ -24,6 +24,9 @@
 	
 	%> --%>
 	
+	<!-- 로그인이 되어있는상태에서는 로그인, 회원가입 버튼이 안보이도록
+	로그인이 안되었을때는 로그인, 회원가입 버튼이 보이도록 -->
+	<a href="boardList.jsp">게시판목록</a>
 	<a href="login_booot.jsp">로그인</a>
 	<a href="join.jsp">회원가입</a>
 	<a href="logoutAction.jsp">로그아웃</a>
