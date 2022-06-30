@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList"%>
-<%@ page import = "bbs.BbsDAO"%>
 <%@ page import = "bbs.Bbs"%>
 <%@ page import = "java.io.PrintWriter" %>  <!-- 출력 도와주는 객체 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="bbsDao" class="bbs.BbsDAO"></jsp:useBean>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,22 +44,20 @@
 							//게시판목록화면에 이미 페이지번호가 요청된것이 있다면 그값으로 페이지세팅
 							pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 						}
-						BbsDAO bbsDAO = new BbsDAO();
-						out.println("현재페이지번호 : "+pageNumber);
-						ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-						out.println("가져온사이즈 : "+list.size());
-						for(int i=0; i<list.size(); i++){
-						
+						ArrayList<Bbs> list = bbsDao.getList(pageNumber);
+						pageContext.setAttribute("bbsList", list);
 					%>
-						<tr>
-							<td><%=list.get(i).getBbsID() %></td>
-							<td><%=list.get(i).getBbsTitle() %></td>
-							<td><%=list.get(i).getWriter() %></td>
-							<td><%=list.get(i).getCrDate() %></td>
+					 <!-- 반복문에서 iterator를 어떻게 설정할것인가가 포인트.
+					 자바변수 그대로 사용할수 없고 내장객체중 어딘가에 담아서 사용해야한다. -->
+					<c:forEach var="bbs" items="${bbsList}">
+				 		<tr>
+							<td><c:out value="${bbs.bbsID}"/></td>
+							<td><c:out value="${bbs.bbsTitle}"/></td>
+							<td><c:out value="${bbs.writer}"/></td>
+							<td><c:out value="${bbs.crDate}"/></td>
 						</tr>
-					<%
-					}
-					%>
+					</c:forEach>
+
 				</tbody>
 			</table>
 			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
