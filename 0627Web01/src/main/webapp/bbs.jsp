@@ -47,8 +47,11 @@
 						ArrayList<Bbs> list = bbsDao.getList(pageNumber);
 						pageContext.setAttribute("bbsList", list);
 					%>
-					 <!-- 반복문에서 iterator를 어떻게 설정할것인가가 포인트.
-					 자바변수 그대로 사용할수 없고 내장객체중 어딘가에 담아서 사용해야한다. -->
+
+					
+					
+					<!-- 반복문에서 iterator를 어떻게 설정할것인가가 포인트.
+					자바변수 그대로 사용할수 없고 내장객체중 어딘가에 담아서 사용해야한다. -->
 					<c:forEach var="bbs" items="${bbsList}">
 				 		<tr>
 							<td><c:out value="${bbs.bbsID}"/></td>
@@ -60,7 +63,9 @@
 
 				</tbody>
 			</table>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<div class="col-11">
+				<a href="write.jsp" class="btn btn-primary float-end">글쓰기</a>
+			</div>
 		</div>
 	</div>
 	
