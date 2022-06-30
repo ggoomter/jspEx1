@@ -36,13 +36,6 @@
 					<th>작성일</th>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>자바</td>
-						<td>홍길동</td>
-						<td>2022-06-29</td>
-					</tr>
-
 					<%
 						int pageNumber = 1;	//1페이지로 기본설정
 						if(request.getParameter("pageNumber") !=null){
@@ -50,18 +43,20 @@
 							pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 						}
 						BbsDAO bbsDAO = new BbsDAO();
-						out.println("11");
 						out.println("현재페이지번호 : "+pageNumber);
 						ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
 						out.println("가져온사이즈 : "+list.size());
-						out.println("<br>");
-						out.println("22");
 						for(int i=0; i<list.size(); i++){
-							out.println("33");
-							out.println(list.get(i));
-						}
-						out.println("44");
 						
+					%>
+						<tr>
+							<td><%=list.get(i).getBbsID() %></td>
+							<td><%=list.get(i).getBbsTitle() %></td>
+							<td><%=list.get(i).getBbsContent() %></td>
+							<td><%=list.get(i).getCrDate() %></td>
+						</tr>
+					<%
+					}
 					%>
 				</tbody>
 			</table>
