@@ -51,7 +51,10 @@
 						}
 						BbsDAO bbsDAO = new BbsDAO();
 						out.println("11");
+						out.println("현재페이지번호 : "+pageNumber);
 						ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+						out.println("가져온사이즈 : "+list.size());
+						out.println("<br>");
 						out.println("22");
 						for(int i=0; i<list.size(); i++){
 							out.println("33");

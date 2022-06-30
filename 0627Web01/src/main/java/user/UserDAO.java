@@ -27,7 +27,16 @@ public class UserDAO {
 			conn = DriverManager.getConnection(dbURL, dbId, dbPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	//로그인 기능 수행 함수. 로그인 화면에서 유저가 아이디 비번을 치고 밑의 로그인 버튼을 눌렸을때 실행
@@ -53,7 +62,16 @@ public class UserDAO {
 					
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}  finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return -2;	//데이터베이스 오류
 	}
 	
@@ -74,7 +92,16 @@ public class UserDAO {
 			return pstmt.executeUpdate();	//정상이면1
 		} catch (Exception e) {
 			e.printStackTrace();	//중복발생이나 어떤이유로 예외가 발생하면
-		} 
+		} finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return -1;	//중복발생
 	}
 }

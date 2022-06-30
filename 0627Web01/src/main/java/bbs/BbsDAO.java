@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -28,6 +29,15 @@ public class BbsDAO {
 			conn = DriverManager.getConnection(dbURL, dbId, dbPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -39,6 +49,7 @@ public class BbsDAO {
 		try {
 			int bbsNum = getNext();
 			String today = getDate();
+			
 			pstmt = conn.prepareStatement(SQL);	//문자열 쿼리를 pstmt에 대입
 			pstmt.setInt(1, bbsNum);	//id
 			pstmt.setString(2, bbsTitle);	//bbsTitle. 제목
@@ -51,6 +62,15 @@ public class BbsDAO {
 					
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return -1;	//데이터베이스 오류
 	}
@@ -80,6 +100,15 @@ public class BbsDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return "";
 	}
@@ -87,16 +116,19 @@ public class BbsDAO {
 	//글 목록 가져오는 함수
 	//쿼리 = 인자(?)로 전달받은 글번호 최신순으로 10개만 가져오는 함수
 	//그런데 함수는 페이지번호다. 그러면 해당페이지의 마지막번호가 몇인지 분석해내야한다.
+
 	public ArrayList<Bbs> getList(int pageNumber){
-		String SQL = "select * from BBS where bbsID < ?\r\n"
-				+ "   and bbsAvailable = 1\r\n"
-				+ "   order by bbsID desc \r\n"
-				+ "   limit 10";
+		String SQL = "select bbsID, bbsTitle, writer, crDate, bbsContent, bbsAvailable from BBS where bbsID < ? and bbsAvailable = 1 order by bbsID desc limit 10";
+		
 		ArrayList<Bbs> list = new ArrayList<Bbs>();	//껍데기 리스트
 		try {
+			
+			int nextNum = getNext();
+			int startNum = nextNum - (pageNumber - 1)*10;
 			pstmt = conn.prepareStatement(SQL);
-			int startNum = getNext() - (pageNumber - 1)*10;
+			
 			pstmt.setInt(1, startNum);	//해당페이지의 시작번호
+
 			rs =  pstmt.executeQuery(); //select문에 쓰는 함수
 			if(rs.next()) {
 				 Bbs bbs = new Bbs();
@@ -110,6 +142,15 @@ public class BbsDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return list;	//다쌓은 리스트를 반환
 	}
